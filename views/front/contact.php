@@ -1,4 +1,4 @@
-<?PHP
+fi<?PHP
 require 'C:/wamp64/www/projet/entites/reclamation.php';
 require 'C:/wamp64/www/projet/core/reclamationC.php';
 

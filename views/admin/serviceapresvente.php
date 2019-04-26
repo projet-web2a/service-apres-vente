@@ -5,9 +5,15 @@ require 'C:/wamp64/www/projet/core/avisC.php';
 
 $reclamation=new reclamationC();
 $avis=new avisC();
-
+$marque="";
 $listereclamations=$reclamation->afficher_reclamations();
 $listeavis=$avis->afficher_avis();
+if(isset($_GET['marque']))
+{
+  $marque=$_GET['marque'];
+}
+$listecommentaire=$avis->afficher_commentaire($marque);
+
 
 $maction=''; 
 if(isset($_POST['search'])) 
@@ -181,37 +187,65 @@ else if($maction=="trier_avis_asc")
 
               <thead >
                   <tr>
-                    <th scope="col">nom</th>
-                    <th scope="col">prenom</th>
-                    <th scope="col">refe</th>
-                    <th scope="col">commentaire</th>
-                    <th scope="col">note </th>
-                    <th scope="col"> date_avis </th>
+                    <th scope="col">marque</th>
+                    <th scope="col">nombre avis</th>
+                    <th scope="col">note moyenne</th>
+                    <th scope="col">action</th>
+
 
 
                    
                   </tr>
                 </thead>
                 <tbody>
+
               <?php foreach($listeavis as $avis): ?>
                   <tr>
-                    <td> <?= $avis->nom; ?> </td>
-                    <td> <?= $avis->prenom ?> </td>
-                    <td> <?= $avis->refe; ?> </td>
-                    <td> <?= $avis->commentaire; ?> </td>
-                    <td> <?= $avis->note; ?> </td>
-                    <td> <?= $avis->date_avis; ?> </td>
+                    <td> <?= $avis->marque; ?> </td>
+                    <td> <?= $avis->nbavis ?> </td>
 
-                    <td>
+                    <td> <?= $avis->notemoyenne; ?> </td>                           
+                          <td>
                            
+                            <a  href="serviceapresvente.php?marque=<?= $avis->marque ?> " class="btn btn-info"> Voir les commentaires </a>
                             
-                            <a onclick="return confirm('Are you sure you want to delete this entry ?')" href="supprimer_avis.php?id=<?= $avis->id_avis ?>" class="btn btn-danger"> Delete </a>
-                          </td>
+                          </td> 
                   </tr>
                 </tbody>
                           <?php endforeach; ?>
 
               </table>
+
+
+
+
+
+ <table class="table table-bordered table-hover table-dark ">
+
+                <button type="button" class="btn btn-danger">Commentaires de <?=$marque ?> </button>
+  <thead >
+                  <tr>
+                    
+                    <th scope="col">commentaire </th>
+ </tr>
+                </thead>
+                <tbody>
+
+              <?php foreach($listecommentaire as $avis): ?>
+                  <tr>
+                  
+
+                    <td> <?= $avis->commentaire; ?> </td>                           
+                          
+                          
+                  </tr>
+                </tbody>
+                          <?php endforeach; ?>
+
+              </table>
+
+
+
                       </div>
                     </div>
                   </div>

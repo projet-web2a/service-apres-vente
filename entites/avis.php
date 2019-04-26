@@ -3,34 +3,23 @@
 class avis 
 {
 
-private $nom;
-private $prenom;
-private $refe;
+
+private $marque;
 private $commentaire;
 private $note;
-private $date_avis;
     
-    function __construct($nom,$prenom,$refe,$commentaire,$note,$date_avis)
+    function __construct($marque,$commentaire,$note)
     {
-        $this->nom=$nom;
-        $this->prenom=$prenom;
-        $this->refe=$refe;
+      
+        $this->marque=$marque;
         $this->commentaire=$commentaire;
         $this->note=$note;
-        $this->date_avis=$date_avis;
         
     }
-    function get_nom()
+   
+ function get_marque()
     {
-        return $this->nom;
-    }
-     function get_prenom()
-    {
-        return $this->prenom;
-    }
- function get_refe()
-    {
-    return $this->refe;
+    return $this->marque;
     }
      function get_commentaire()
     {
@@ -40,11 +29,7 @@ private $date_avis;
     {
         return $this->note;
     }
-    function get_date_avis()
-    {
-        return $this->date_avis;
-    }
-
+  
 
 } 
 ?>

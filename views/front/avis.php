@@ -2,11 +2,10 @@
 require 'C:/wamp64/www/projet/entites/avis.php';
 require 'C:/wamp64/www/projet/core/avisC.php';
 
-if (isset($_POST['nom']) and isset($_POST['prenom']) and isset($_POST['note']) and isset($_POST['commentaire']) and isset($_POST['reference']))
+if ( isset($_POST['note']) and isset($_POST['commentaire']) and isset($_POST['marque']))
 {
-	$date = date("Y-m-d");
 
-$av=new avis($_POST['nom'],$_POST['prenom'],$_POST['note'],$_POST['commentaire'],$_POST['reference'],$date);
+$av=new avis($_POST['marque'],$_POST['commentaire'],$_POST['note']);
 //Partie2
 /*
 var_dump($employe1);
@@ -20,6 +19,8 @@ $av1->ajouter_avis($av);
 }else{
 	echo "vérifier les champs";
 }
+$avis=new avisC();
+$listeproduit=$avis->recuperer_produit();
 ?>
 <!--
 	Author: W3layouts
@@ -60,19 +61,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	    	
 	function verifa()
     {
-	if (f.nom.value=='')
+	
+	 if(f.marque.value=='')
 	{
-		alert("entrer un nom valide");
-		return false;
-	}
-	else if(f.prenom.value=='')
-	{
-		alert("entrer un prenom valide");
-		return false;
-	}
-	else if(f.refe.value=='')
-	{
-		alert("entrer une reference valide");
+		alert("entrer une marque valide");
 		return false;
 	}
 	else if (f.note.value=='')
@@ -80,11 +72,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		alert("entrer une note valide");
 		return false;
 	}
-	else if (f.commentaire.value=='')
-	{
-		alert("entrer un commentaire valide");
-		return false;
-	}
+	else if(f.commentaire.value=='')
+		{alert("entrer un commentaire valide");}
+	
 	return true;
     }
 </script>
@@ -420,30 +410,44 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="contact_grid_right">
 					<form action="#" method="post" name="f" onsubmit="return verif()">
 						<div class="row contact_left_grid">
-							<div class="col-md-6 con-left">
+							
 								<div class="form-group">
-									<label class="my-2">Nom</label>
-									<input class="form-control" type="text" name="nom" placeholder="" required="">
-								</div>
+      								<label for="note">note</label>
+      									<select name="note" class="form-control">
+      									<?php for($i=0;$i<6;$i++){?>
+
+        								<option > <?= $i ?></option>
+           							    <?php } ?>
+      									</select>
 								<div class="form-group">
-									<label>Prenom</label>
-									<input class="form-control" type="text" name="prenom" placeholder="" required="">
-								</div>
-								<div class="form-group">
-									<label class="my-2">Note</label>
-									<input class="form-control" type="text" name="note" placeholder="Donner une note sur 5" required="">
-								</div>
-								
-								<div class="form-group">
-									<label class="my-2">Reference</label>
+      <!--<label class="my-2">Reference</label>
 									<input class="form-control" type="text" name="reference" placeholder="" required="">
 								</div>
+-->
+								<div class="form-group">
+      								<label for="marque">marque</label>
+      									<select name="marque" class="form-control">
+      									<?php foreach($listeproduit as $produit): ?>
+        								<option > <?= $produit->marque; ?></option>
+           							    <?php endforeach; ?>
+      									</select>
+  </div>
+  <div class="form-group">
+									<label class="my-2">commentaire</label>
+									<input class="form-control" type="text" name="commentaire" placeholder="" required="">
+								</div>
+  </div>
+								
+								
+
+
+
+
+
+
 
 							<div class="col-md-15 con-right">
-								<div class="form-group">
-									<label>Commentaire</label>
-									<textarea name="commentaire" placeholder="" required></textarea>
-								</div>
+								
 								<input class="form-control" type="submit" value="Submit" onclick="return verifa()" >
 
 							</div>
